@@ -6,13 +6,13 @@ homepage: https://leonardobenedeti.github.io/fipe_flutter
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
-  flutter: ">=1.17.0"
+  flutter: 1.22.6
 
 dependencies:
-  fipe_flutter:
-    path: ../
+  http: ^0.12.2
   flutter:
     sdk: flutter
+
 
 dev_dependencies:
   flutter_test:
