@@ -4,32 +4,63 @@ import 'package:fipe_flutter/fipe_flutter.dart';
 
 void main() {
   FipeApi fipeApi;
-  const marca = '20';
-  const versao = '7502';
-  const modelo = '2019-1';
-  const textModelo = '488 GTB 3.9 V8 670cv';
+  const tipoVeiculo = '1';
+  const codigoMarca = '6';
+  const codigoModelo = '48';
+  const ano = '1995-1';
+  const codigoTipoCombustivel = '1';
+  const anoModelo = '1995';
+  const textModelo = '80 2.6/ 2.8';
 
   setUpAll(() {
     fipeApi = FipeApi();
   });
 
-  test('Requisição para mostrar todas as marcas na api FIPE', () async {
-    var expectedMarcas = await fipeApi.marcas();
+  test('Requisição: ConsultarMarcas ', () async {
+    var expectedMarcas = await fipeApi.consultarMarcas(
+      tipoVeiculo,
+    );
     expect(expectedMarcas.isNotEmpty, true);
   });
 
-  test('Requisição para mostrar todos veiculos na api FIPE', () async {
-    var expectedVeiculos = await fipeApi.veiculos(marca);
+  test('Requisição: ConsultarModelos', () async {
+    var expectedVeiculos = await fipeApi.consultarModelos(
+      tipoVeiculo,
+      codigoMarca,
+    );
     expect(expectedVeiculos.isNotEmpty, true);
   });
 
-  test('Requisição para mostrar todos versoes na api FIPE', () async {
-    var expectedVersoes = await fipeApi.versoes(marca, versao);
-    expect(expectedVersoes.isNotEmpty, true);
+  test('Requisição: ConsultarAnoModelo ', () async {
+    var expectedVeiculos = await fipeApi.consultarAnoModelo(
+      tipoVeiculo,
+      codigoMarca,
+      codigoModelo,
+    );
+    expect(expectedVeiculos.isNotEmpty, true);
   });
 
-  test('Requisição para mostrar todos modelos na api FIPE', () async {
-    var expectedModelo = await fipeApi.modelos(marca, versao, modelo);
-    expect(expectedModelo.name, textModelo);
+  test('Requisição: ConsultarModelosAtravesDoAno ', () async {
+    var expectedVeiculos = await fipeApi.consultarModelosAtravesDoAno(
+      tipoVeiculo,
+      codigoMarca,
+      codigoModelo,
+      ano,
+      codigoTipoCombustivel,
+      anoModelo,
+    );
+    expect(expectedVeiculos.isNotEmpty, true);
+  });
+
+  test('Requisição: ConsultarValorComTodosParametros ', () async {
+    var expectedVeiculos = await fipeApi.consultarValorComTodosParametros(
+      tipoVeiculo,
+      codigoMarca,
+      codigoModelo,
+      ano,
+      codigoTipoCombustivel,
+      anoModelo,
+    );
+    expect(expectedVeiculos.modelo, textModelo);
   });
 }

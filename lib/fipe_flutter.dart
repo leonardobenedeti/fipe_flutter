@@ -1,52 +1,124 @@
 library fipe_flutter;
 
-import 'package:fipe_flutter/models/marca.dart';
-import 'package:fipe_flutter/models/modelo.dart';
-import 'package:fipe_flutter/models/versao.dart';
-import 'package:fipe_flutter/models/veiculo.dart';
+import 'package:fipe_flutter/models/marca_modelo_model.dart';
+import 'package:fipe_flutter/models/modelo_completo_model.dart';
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 
 class FipeApi {
-  static const basePath = 'https://fipeapi.appspot.com/api/1';
+  static const basePath = 'https://veiculos.fipe.org.br/api/veiculos';
+  static const referenciaTabela = '266';
 
-  Future<List<MarcaModel>> marcas() async {
-    const marcasApi = '/carros/marcas.json';
+  Future<List<MarcaModeloModel>> consultarMarcas(String tipoVeiculo) async {
+    const marcasApi = '/ConsultarMarcas';
 
-    var response = await http.get(basePath + marcasApi);
+    var response = await http.post(
+      basePath + marcasApi,
+      body: {
+        'codigoTabelaReferencia': referenciaTabela,
+        'codigoTipoVeiculo': tipoVeiculo,
+      },
+    );
     if (response.statusCode != 200)
-      return throw '[Marcas] Algo de errado não está certo';
+      return throw '[ConsultarMarcas] Algo de errado não está certo';
 
     List marcas = convert.jsonDecode(response.body);
-    return marcas.map((marca) => MarcaModel.fromJson(marca)).toList();
+    return marcas.map((marca) => MarcaModeloModel.fromJson(marca)).toList();
   }
 
-  Future<List<VeiculoModel>> veiculos(String marca) async {
-    final veiculosApi = '/carros/veiculos/$marca.json';
-    var response = await http.get(basePath + veiculosApi);
+  Future<List<MarcaModeloModel>> consultarModelos(
+    String tipoVeiculo,
+    String codigoMarca,
+  ) async {
+    final veiculosApi = '/ConsultarModelos';
+    var response = await http.post(
+      basePath + veiculosApi,
+      body: {
+        'codigoTipoVeiculo': tipoVeiculo,
+        'codigoTabelaReferencia': referenciaTabela,
+        'codigoMarca': codigoMarca,
+      },
+    );
     if (response.statusCode != 200)
-      return throw '[Veículos] Algo de errado não está certo';
+      return throw '[ConsultarModelos] Algo de errado não está certo';
+
+    List veiculos = convert.jsonDecode(response.body)['Modelos'];
+    return veiculos.map((v) => MarcaModeloModel.fromJson(v)).toList();
+  }
+
+  Future<List<MarcaModeloModel>> consultarAnoModelo(
+    String tipoVeiculo,
+    String codigoMarca,
+    String codigoModelo,
+  ) async {
+    final anoModeloApi = '/ConsultarAnoModelo';
+    var response = await http.post(
+      basePath + anoModeloApi,
+      body: {
+        'codigoTipoVeiculo': tipoVeiculo,
+        'codigoTabelaReferencia': referenciaTabela,
+        'codigoModelo': codigoModelo,
+        'codigoMarca': codigoMarca,
+      },
+    );
+    if (response.statusCode != 200)
+      return throw '[ConsultarAnoModelo] Algo de errado não está certo';
 
     List veiculos = convert.jsonDecode(response.body);
-    return veiculos.map((v) => VeiculoModel.fromJson(v)).toList();
+    return veiculos.map((v) => MarcaModeloModel.fromJson(v)).toList();
   }
 
-  Future<List<VersaoModel>> versoes(String marca, String versao) async {
-    final versoesApi = '/carros/veiculo/$marca/$versao.json';
-    var response = await http.get(basePath + versoesApi);
+  Future<List<MarcaModeloModel>> consultarModelosAtravesDoAno(
+    String tipoVeiculo,
+    String codigoMarca,
+    String codigoModelo,
+    String ano,
+    String codigoTipoCombustivel,
+    String anoModelo,
+  ) async {
+    final anoModeloApi = '/ConsultarModelosAtravesDoAno';
+    var response = await http.post(
+      basePath + anoModeloApi,
+      body: {
+        'codigoTipoVeiculo': tipoVeiculo,
+        'codigoTabelaReferencia': referenciaTabela,
+        'codigoModelo': codigoModelo,
+        'codigoMarca': codigoMarca,
+        'ano': ano,
+        'codigoTipoCombustivel': codigoTipoCombustivel,
+        'anoModelo': anoModelo,
+      },
+    );
     if (response.statusCode != 200)
-      return throw '[Versões] Algo de errado não está certo';
+      return throw '[ConsultarModelosAtravesDoAno] Algo de errado não está certo';
 
-    List versoes = convert.jsonDecode(response.body);
-    return versoes.map((v) => VersaoModel.fromJson(v)).toList();
+    List veiculos = convert.jsonDecode(response.body);
+    return veiculos.map((v) => MarcaModeloModel.fromJson(v)).toList();
   }
 
-  Future<ModeloModel> modelos(
-      String marca, String versao, String modelo) async {
-    final modelosApi = '/carros/veiculo/$marca/$versao/$modelo.json';
-    var response = await http.get(basePath + modelosApi);
+  Future<ModeloModel> consultarValorComTodosParametros(
+    String tipoVeiculo,
+    String codigoMarca,
+    String codigoModelo,
+    String ano,
+    String codigoTipoCombustivel,
+    String anoModelo,
+  ) async {
+    final valorComParametrosApi = '/ConsultarValorComTodosParametros';
+    var response = await http.post(
+      basePath + valorComParametrosApi,
+      body: {
+        'codigoTabelaReferencia': referenciaTabela,
+        'codigoMarca': codigoMarca,
+        'codigoModelo': codigoModelo,
+        'codigoTipoVeiculo': tipoVeiculo,
+        'anoModelo': anoModelo,
+        'codigoTipoCombustivel': codigoTipoCombustivel,
+        'tipoConsulta': 'tradicional',
+      },
+    );
     if (response.statusCode != 200)
-      return throw '[Modelo] Algo de errado não está certo';
+      return throw '[ConsultarModelosAtravesDoAno] Algo de errado não está certo';
 
     final jsonBody = convert.jsonDecode(response.body);
     return ModeloModel.fromJson(jsonBody);
