@@ -57,7 +57,6 @@ void main() {
       tipoVeiculo,
       codigoMarca,
       codigoModelo,
-      ano,
       codigoTipoCombustivel,
       anoModelo,
     );

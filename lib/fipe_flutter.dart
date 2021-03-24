@@ -100,7 +100,6 @@ class FipeApi {
     String tipoVeiculo,
     String codigoMarca,
     String codigoModelo,
-    String ano,
     String codigoTipoCombustivel,
     String anoModelo,
   ) async {

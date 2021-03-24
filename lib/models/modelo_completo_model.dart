@@ -38,4 +38,20 @@ class ModeloModel {
         siglaCombustivel: json['SiglaCombustivel'],
         dataConsulta: json['DataConsulta'],
       );
+
+  toMap() {
+    var map = new Map<String, dynamic>();
+    map['Valor'] = this.valor;
+    map['Marca'] = this.marca;
+    map['Modelo'] = this.modelo;
+    map['AnoModelo'] = this.anoModelo;
+    map['Combustivel'] = this.combustivel;
+    map['CodigoFipe'] = this.codigoFipe;
+    map['MesReferencia'] = this.mesReferencia;
+    map['Autenticacao'] = this.autenticacao;
+    map['TipoVeiculo'] = this.tipoVeiculo;
+    map['SiglaCombustivel'] = this.siglaCombustivel;
+    map['DataConsulta'] = this.dataConsulta;
+    return map;
+  }
 }
