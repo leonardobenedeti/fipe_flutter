@@ -1,7 +1,6 @@
 name: fipe_flutter
 description: Pacote para uso da api FIPE, retornando informações de carros na tabela FIPE.
 version: 0.0.1
-author: Leonardo Benedeti
 homepage: https://leonardobenedeti.github.io/fipe_flutter
 
 environment:
