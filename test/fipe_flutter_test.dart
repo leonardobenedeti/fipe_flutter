@@ -1,9 +1,8 @@
+import 'package:fipe_flutter/fipe_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:fipe_flutter/fipe_flutter.dart';
-
 void main() {
-  FipeApi fipeApi;
+  FipeApi fipeApi = FipeApi();
   const tipoVeiculo = '1';
   const codigoMarca = '6';
   const codigoModelo = '48';

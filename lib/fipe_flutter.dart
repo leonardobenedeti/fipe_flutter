@@ -1,19 +1,21 @@
 library fipe_flutter;
 
+import 'dart:convert' as convert;
+
 import 'package:fipe_flutter/models/marca_modelo_model.dart';
 import 'package:fipe_flutter/models/modelo_completo_model.dart';
-import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 
 class FipeApi {
-  static const basePath = 'https://veiculos.fipe.org.br/api/veiculos';
+  static const basePath = 'veiculos.fipe.org.br';
+  static const apiPath = "/api/veiculos";
   static const referenciaTabela = '266';
 
   Future<List<MarcaModeloModel>> consultarMarcas(String tipoVeiculo) async {
     const marcasApi = '/ConsultarMarcas';
 
     var response = await http.post(
-      basePath + marcasApi,
+      Uri.https(basePath, apiPath + marcasApi),
       body: {
         'codigoTabelaReferencia': referenciaTabela,
         'codigoTipoVeiculo': tipoVeiculo,
@@ -32,7 +34,7 @@ class FipeApi {
   ) async {
     final veiculosApi = '/ConsultarModelos';
     var response = await http.post(
-      basePath + veiculosApi,
+      Uri.https(basePath, apiPath + veiculosApi),
       body: {
         'codigoTipoVeiculo': tipoVeiculo,
         'codigoTabelaReferencia': referenciaTabela,
@@ -53,7 +55,7 @@ class FipeApi {
   ) async {
     final anoModeloApi = '/ConsultarAnoModelo';
     var response = await http.post(
-      basePath + anoModeloApi,
+      Uri.https(basePath, apiPath + anoModeloApi),
       body: {
         'codigoTipoVeiculo': tipoVeiculo,
         'codigoTabelaReferencia': referenciaTabela,
@@ -78,7 +80,7 @@ class FipeApi {
   ) async {
     final anoModeloApi = '/ConsultarModelosAtravesDoAno';
     var response = await http.post(
-      basePath + anoModeloApi,
+      Uri.https(basePath, apiPath + anoModeloApi),
       body: {
         'codigoTipoVeiculo': tipoVeiculo,
         'codigoTabelaReferencia': referenciaTabela,
@@ -105,7 +107,7 @@ class FipeApi {
   ) async {
     final valorComParametrosApi = '/ConsultarValorComTodosParametros';
     var response = await http.post(
-      basePath + valorComParametrosApi,
+      Uri.https(basePath, apiPath + valorComParametrosApi),
       body: {
         'codigoTabelaReferencia': referenciaTabela,
         'codigoMarca': codigoMarca,

@@ -1,15 +1,15 @@
 class ModeloModel {
-  String valor;
-  String marca;
-  String modelo;
-  int anoModelo;
-  String combustivel;
-  String codigoFipe;
-  String mesReferencia;
-  String autenticacao;
-  int tipoVeiculo;
-  String siglaCombustivel;
-  String dataConsulta;
+  String? valor;
+  String? marca;
+  String? modelo;
+  int? anoModelo;
+  String? combustivel;
+  String? codigoFipe;
+  String? mesReferencia;
+  String? autenticacao;
+  int? tipoVeiculo;
+  String? siglaCombustivel;
+  String? dataConsulta;
 
   ModeloModel({
     this.valor,

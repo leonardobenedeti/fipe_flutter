@@ -1,6 +1,6 @@
 class MarcaModeloModel {
-  String value;
-  String label;
+  String? value;
+  String? label;
 
   MarcaModeloModel({
     this.value,
