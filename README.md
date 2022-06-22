@@ -79,6 +79,9 @@ Os outros dependem da resposta das apis. Os testes e app example mostram as cham
 ## Contribuintes
 Só mandar um PR =D
 
+| [<img src="https://avatars.githubusercontent.com/u/4130653?v=4" width="115"><br><small>@olimou</small>](https://github.com/olimou) |
+|:-----------------------------------------------------------------------------------------------------------------------------:|
+
 ## Autor
 | [<img src="https://avatars.githubusercontent.com/u/10719847?v=4" width="115"><br><small>@leonardobenedeti</small>](https://github.com/leonardobenedeti) |
 | :---: |

@@ -1,8 +1,8 @@
+import 'package:example/indexed_iterable_extension.dart';
 import 'package:fipe_flutter/fipe_flutter.dart';
 import 'package:fipe_flutter/models/marca_modelo_model.dart';
 import 'package:fipe_flutter/models/modelo_completo_model.dart';
 import 'package:flutter/material.dart';
-import 'package:example/indexed_iterable_extension.dart';
 
 class FipeUsagePage extends StatefulWidget {
   @override
@@ -15,15 +15,15 @@ class _FipeUsagePageState extends State<FipeUsagePage> {
   bool error = false;
 
   List<MarcaModeloModel> marcas = [];
-  MarcaModeloModel marcaSelecionada;
+  MarcaModeloModel? marcaSelecionada;
 
   List<MarcaModeloModel> modelos = [];
-  MarcaModeloModel modeloSelecionado;
+  MarcaModeloModel? modeloSelecionado;
 
   List<MarcaModeloModel> modelosAno = [];
-  MarcaModeloModel modeloAnoSelecionado;
+  MarcaModeloModel? modeloAnoSelecionado;
 
-  ModeloModel modeloDetalhado;
+  ModeloModel? modeloDetalhado;
 
   @override
   void initState() {
@@ -60,7 +60,10 @@ class _FipeUsagePageState extends State<FipeUsagePage> {
       modeloDetalhado = null;
     });
     try {
-      var list = await fipeApi.consultarModelos("1", marcaSelecionada.value);
+      var list = await fipeApi.consultarModelos(
+        "1",
+        marcaSelecionada?.value ?? "",
+      );
       setState(() => modelos = list);
     } catch (e) {
       setState(() => error = true);
@@ -78,7 +81,10 @@ class _FipeUsagePageState extends State<FipeUsagePage> {
     });
     try {
       var list = await fipeApi.consultarAnoModelo(
-          "1", marcaSelecionada.value, modeloSelecionado.value);
+        "1",
+        marcaSelecionada?.value ?? "",
+        modeloSelecionado?.value ?? "",
+      );
       setState(() => modelosAno = list);
     } catch (e) {
       setState(() => error = true);
@@ -92,14 +98,14 @@ class _FipeUsagePageState extends State<FipeUsagePage> {
       error = false;
     });
     try {
-      final anoCombustivel = modeloAnoSelecionado.value.split('-');
+      final anoCombustivel = modeloAnoSelecionado?.value?.split('-');
 
       var modeloModel = await fipeApi.consultarValorComTodosParametros(
         "1",
-        marcaSelecionada.value,
-        modeloSelecionado.value,
-        anoCombustivel[1],
-        anoCombustivel[0],
+        marcaSelecionada?.value ?? "",
+        modeloSelecionado?.value ?? "",
+        anoCombustivel?[1] ?? "",
+        anoCombustivel?[0] ?? "",
       );
       setState(() => modeloDetalhado = modeloModel);
     } catch (e) {
@@ -133,7 +139,7 @@ class _FipeUsagePageState extends State<FipeUsagePage> {
                 ),
 
                 if (marcaSelecionada != null) ...[
-                  Text(marcaSelecionada.label),
+                  Text(marcaSelecionada?.label ?? ""),
 
                   // Selecionar modelos
                   MaterialButton(
@@ -147,7 +153,7 @@ class _FipeUsagePageState extends State<FipeUsagePage> {
                   ),
 
                   if (modeloSelecionado != null) ...[
-                    Text(modeloSelecionado.label),
+                    Text(modeloSelecionado?.label ?? ""),
 
                     // Selecionar Anos dos carros pelo modelo
                     MaterialButton(
@@ -164,7 +170,7 @@ class _FipeUsagePageState extends State<FipeUsagePage> {
                     ),
 
                     if (modeloAnoSelecionado != null) ...[
-                      Text(modeloAnoSelecionado.label),
+                      Text(modeloAnoSelecionado?.label ?? ""),
 
                       // Busca detalhada do carro
                       MaterialButton(
@@ -182,7 +188,7 @@ class _FipeUsagePageState extends State<FipeUsagePage> {
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
-                        ..._detalhesModelo(modeloDetalhado.toMap()),
+                        ..._detalhesModelo(modeloDetalhado?.toMap()),
                       ]
                     ]
                   ]
@@ -222,7 +228,7 @@ class _FipeUsagePageState extends State<FipeUsagePage> {
   Future<void> _askedToLead(
       String label,
       List<MarcaModeloModel> lista,
-      MarcaModeloModel itemSelecionado,
+      MarcaModeloModel? itemSelecionado,
       Function(MarcaModeloModel) onSelect) async {
     await showDialog(
       context: context,
@@ -233,7 +239,7 @@ class _FipeUsagePageState extends State<FipeUsagePage> {
             ...lista.map(
               (item) => SimpleDialogOption(
                 child: Text(
-                  item.label,
+                  item.label ?? "",
                   style: TextStyle(
                       fontWeight: item == itemSelecionado
                           ? FontWeight.bold
