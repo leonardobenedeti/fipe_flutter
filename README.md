@@ -23,47 +23,59 @@ import 'package:fipe_flutter/fipe_flutter.dart';
 
 ```dart
 Future fetchMarcas() async {
-    var listMarcas = await FipeApi().consultarMarcas("1");      
+    var listMarcas = await FipeApi().consultarMarcas(tipoVeiculo: "1");      
+}
+```
+
+Para usar um Http Client customizado
+```dart
+Future fetchMarcas() async {
+  var listMarcas = await FipeApi(client: Dio()).consultarMarcas(tipoVeiculo: "1");
 }
 ```
 
 Métodos que a pub disponibiliza:
 ```dart
-consultarMarcas(
-  String tipoVeiculo,
-)
+consultarMarcas({
+  required String tipoVeiculo,
+  Options? options,
+})
 ```
 ```dart
-consultarModelos(
-  String tipoVeiculo,
-  String codigoMarca,
-)
+consultarModelos({
+  required String tipoVeiculo,
+  required String codigoMarca,
+  Options? options,
+})
 ```
 ```dart
-consultarAnoModelo(
-  String tipoVeiculo, 
-  String codigoMarca, 
-  String codigoModelo,
-)
+consultarAnoModelo({
+  required String tipoVeiculo,
+  required String codigoMarca,
+  required String codigoModelo,
+  Options? options,
+})
 ```
 ```dart
-consultarModelosAtravesDoAno(
-  String tipoVeiculo, 
-  String codigoMarca, 
-  String codigoModelo, 
-  String ano, 
-  String codigoTipoCombustivel, 
-  String anoModelo,
-)
+consultarModelosAtravesDoAno({
+  required String tipoVeiculo,
+  required String codigoMarca,
+  required String codigoModelo,
+  required String ano,
+  required String codigoTipoCombustivel,
+  required String anoModelo,
+  Options? options,
+})
 ```
 ```dart
-consultarValorComTodosParametros(
-  String tipoVeiculo, 
-  String codigoMarca, 
-  String codigoModelo, 
-  String codigoTipoCombustivel, 
-  String anoModelo,
-)
+consultarValorComTodosParametros({
+  required String tipoVeiculo,
+  required String codigoMarca,
+  required String codigoModelo,
+  required String codigoTipoCombustivel,
+  required String anoModelo,
+  Options? options,
+})
 ```
 
 Único parâmetro que tem valores pré-definidos é o Tipo de Veículo

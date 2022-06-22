@@ -42,7 +42,9 @@ class _FipeUsagePageState extends State<FipeUsagePage> {
       modeloDetalhado = null;
     });
     try {
-      var list = await fipeApi.consultarMarcas("1");
+      var list = await fipeApi.consultarMarcas(
+        tipoVeiculo: "1",
+      );
       setState(() => marcas = list);
     } catch (e) {
       setState(() => error = true);
@@ -61,8 +63,8 @@ class _FipeUsagePageState extends State<FipeUsagePage> {
     });
     try {
       var list = await fipeApi.consultarModelos(
-        "1",
-        marcaSelecionada?.value ?? "",
+        tipoVeiculo: "1",
+        codigoMarca: marcaSelecionada?.value ?? "",
       );
       setState(() => modelos = list);
     } catch (e) {
@@ -81,9 +83,9 @@ class _FipeUsagePageState extends State<FipeUsagePage> {
     });
     try {
       var list = await fipeApi.consultarAnoModelo(
-        "1",
-        marcaSelecionada?.value ?? "",
-        modeloSelecionado?.value ?? "",
+        tipoVeiculo: "1",
+        codigoMarca: marcaSelecionada?.value ?? "",
+        codigoModelo: modeloSelecionado?.value ?? "",
       );
       setState(() => modelosAno = list);
     } catch (e) {
@@ -101,11 +103,11 @@ class _FipeUsagePageState extends State<FipeUsagePage> {
       final anoCombustivel = modeloAnoSelecionado?.value?.split('-');
 
       var modeloModel = await fipeApi.consultarValorComTodosParametros(
-        "1",
-        marcaSelecionada?.value ?? "",
-        modeloSelecionado?.value ?? "",
-        anoCombustivel?[1] ?? "",
-        anoCombustivel?[0] ?? "",
+        tipoVeiculo: "1",
+        codigoMarca: marcaSelecionada?.value ?? "",
+        codigoModelo: modeloSelecionado?.value ?? "",
+        codigoTipoCombustivel: anoCombustivel?[1] ?? "",
+        anoModelo: anoCombustivel?[0] ?? "",
       );
       setState(() => modeloDetalhado = modeloModel);
     } catch (e) {
